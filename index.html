@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HELIOS — Solar Flare Prediction System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="stars"></div>
+
+<header>
+  <nav class="wrap">
+    <div class="brand"><span class="brand-dot"></span>HELIOS</div>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#features">Features</a></li>
+      <li><a href="#pipeline">How it works</a></li>
+      <li><a href="#sources">Data sources</a></li>
+    </ul>
+    <a href="#cta" class="nav-cta">Request access</a>
+    <button class="nav-toggle" aria-label="Menu">☰</button>
+  </nav>
+</header>
+
+<main>
+  <!-- HERO -->
+  <section class="hero" id="home">
+    <div class="wrap hero-grid">
+      <div>
+        <span class="eyebrow">● ISRO HACKATHON PROJECT — SPACE WEATHER</span>
+        <h1>Know a solar flare<br>before it <span class="accent">reaches Earth.</span></h1>
+        <p class="lede">HELIOS reads X-ray flux and magnetogram data as it comes in and forecasts flare class, timing, and Earth-impact risk — so satellite, power-grid, and aviation teams get a warning window, not a headline after the fact.</p>
+        <div class="hero-actions">
+          <a href="#cta" class="btn-primary">Request access</a>
+          <a href="#pipeline" class="btn-secondary">See how it predicts</a>
+        </div>
+        <div class="flare-scale">
+          <span class="fc-a"></span><span class="fc-b"></span><span class="fc-c"></span><span class="fc-m"></span><span class="fc-x"></span>
+        </div>
+        <div class="flare-scale-labels"><span>A</span><span>B</span><span>C</span><span>M</span><span>X — most severe</span></div>
+      </div>
+
+      <div class="hero-visual">
+        <div class="scene-glow"></div>
+        <div class="solar-scene" id="solarScene">
+          <div class="sun">
+            <div class="sun-flare"></div>
+          </div>
+
+          <div class="orbit orbit-earth">
+            <div class="earth-wrap">
+              <div class="earth"></div>
+              <div class="orbit orbit-sat">
+                <div class="satellite"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="readout-strip">
+          <div class="live-tag"><span class="live-dot"></span>LIVE FEED — GOES X-RAY <span id="clock">00:00:00 UTC</span></div>
+          <div class="readout-strip-grid">
+            <div class="rs-item"><span class="rs-label">Flare class</span><span class="rs-value mono" id="flare-class">M1.4</span></div>
+            <div class="rs-item"><span class="rs-label">ETA peak</span><span class="rs-value mono" id="eta">41 min</span></div>
+            <div class="rs-item"><span class="rs-label">Confidence</span><span class="rs-value mono" id="conf">78%</span></div>
+            <div class="rs-item"><span class="rs-label">Active region</span><span class="rs-value mono" id="region">AR3921</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DEMO -->
+  <section class="demo" id="demo">
+    <div class="wrap">
+      <div class="section-head reveal" style="margin:0 auto 32px;text-align:center;">
+        <span class="section-tag">Prototype walkthrough</span>
+        <h2>See HELIOS predicting a flare, live</h2>
+        <p style="margin:0 auto;">A quick look at the dashboard reading incoming flux data and raising a prediction in real time.</p>
+      </div>
+      <div class="video-card reveal">
+        <video
+          id="demoVideo"
+          class="device-video"
+          src="demo.mp4"
+          poster="demo-poster.jpeg"
+          autoplay
+          muted
+          loop
+          playsinline
+          preload="auto">
+        </video>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about" id="about">
+    <div class="wrap about-grid">
+      <div class="reveal">
+        <span class="section-tag">About the app</span>
+        <h2 class="section-head" style="margin-bottom:16px;">A forecasting layer between the Sun and the systems that depend on it</h2>
+        <div class="about-copy">
+          <p>Solar flares and coronal mass ejections can disrupt satellite links, GPS accuracy, HF radio, and power grids within minutes of eruption. Most existing tools report flares after they've already happened — HELIOS is built to forecast them ahead of time.</p>
+          <p>The system ingests continuous X-ray flux data, solar magnetogram imagery, and sunspot activity, and runs it through a trained model that estimates the likely flare class, expected timing, and probability of an Earth-directed CME — surfaced through a live dashboard and automated alerts.</p>
+          <p>Built as part of an ISRO hackathon submission, HELIOS is designed to eventually plug into data from India's Aditya-L1 solar observation mission alongside existing GOES and SDO feeds.</p>
+        </div>
+      </div>
+      <div class="about-stats reveal">
+        <div class="stat"><div class="stat-num">~99%</div><div class="stat-label">of major flares originate from active regions the model tracks continuously</div></div>
+        <div class="stat"><div class="stat-num">15–60 min</div><div class="stat-label">typical forecast lead time before peak flux</div></div>
+        <div class="stat"><div class="stat-num">5 classes</div><div class="stat-label">A · B · C · M · X — full flare severity spectrum covered</div></div>
+        <div class="stat"><div class="stat-num">3 feeds</div><div class="stat-label">GOES, SDO, and Aditya-L1 data integrated into one model</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="features" id="features">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="section-tag">Key features</span>
+        <h2>Everything a mission control screen needs, nothing it doesn't</h2>
+        <p>Built around one job — turn raw solar data into a decision someone can act on in time.</p>
+      </div>
+      <div class="feature-grid reveal">
+        <div class="feature-card">
+          <div class="feature-icon">☀</div>
+          <h3>Real-time flux monitoring</h3>
+          <p>Streams GOES X-ray flux data continuously and flags deviations from baseline before they cross a flare threshold.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">◈</div>
+          <h3>ML-based class prediction</h3>
+          <p>Estimates upcoming flare class (A through X) and peak timing using a model trained on historical active-region behaviour.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">⤳</div>
+          <h3>CME trajectory estimation</h3>
+          <p>Flags when a coronal mass ejection is likely to be Earth-directed, and gives a rough arrival window.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">⚠</div>
+          <h3>Operator alerting</h3>
+          <p>Pushes threshold-based alerts to satellite, grid, and aviation operators so response time isn't spent finding the data first.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">▤</div>
+          <h3>Active region tracking</h3>
+          <p>Watches individual sunspot regions over their rotation across the solar disk and ranks them by eruption risk.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">▦</div>
+          <h3>Historical flare archive</h3>
+          <p>Searchable record of past events by class, region, and date — for validating predictions against what actually happened.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PIPELINE -->
+  <section class="pipeline" id="pipeline">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="section-tag">How it works</span>
+        <h2>From raw signal to a usable warning</h2>
+        <p>Four stages, running continuously, from data ingestion to an alert reaching someone's screen.</p>
+      </div>
+      <div class="pipeline-track reveal">
+        <div class="pipe-step">
+          <div class="pipe-num">01</div>
+          <h3>Ingest</h3>
+          <p>Pulls live X-ray flux, magnetogram, and sunspot data from GOES, SDO, and Aditya-L1 feeds.</p>
+        </div>
+        <div class="pipe-step">
+          <div class="pipe-num">02</div>
+          <h3>Preprocess</h3>
+          <p>Cleans and aligns time-series and image data, isolating active regions worth tracking.</p>
+        </div>
+        <div class="pipe-step">
+          <div class="pipe-num">03</div>
+          <h3>Predict</h3>
+          <p>Model scores each active region for flare class, peak timing, and CME likelihood.</p>
+        </div>
+        <div class="pipe-step">
+          <div class="pipe-num">04</div>
+          <h3>Alert</h3>
+          <p>Crosses a confidence threshold → dashboard updates and operators are notified automatically.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SOURCES -->
+  <section class="sources" id="sources">
+    <div class="wrap sources-inner">
+      <span class="sources-label">DATA SOURCES</span>
+      <div class="source-list">
+        <span>GOES-16/18<small>X-ray flux (primary)</small></span>
+        <span>SDO/HMI<small>Magnetogram imagery</small></span>
+        <span>Aditya-L1<small>Planned integration</small></span>
+        <span>NOAA SWPC<small>Historical event archive</small></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta" id="cta">
+    <div class="wrap">
+      <h2>Built for the next flare, not the last one.</h2>
+      <p>HELIOS is an ISRO hackathon submission — this is the working prototype dashboard.</p>
+      <a href="#" class="btn-primary">Request access</a>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap footer-inner">
+    <p>HELIOS — Solar Flare Prediction System · ISRO Hackathon Submission</p>
+    <p id="year-clock" class="mono">2026</p>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
